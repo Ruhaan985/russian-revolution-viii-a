@@ -17,7 +17,7 @@ export const Route = createFileRoute("/")({
       {
         property: "og:description",
         content:
-          "Petrograd, the Winter Palace, the Red Guards. A cinematic chronicle of the year that broke an empire.",
+          "A cinematic visual chronicle of the Russian Revolution: February's collapse, October's seizure of power, and the civil war that followed.",
       },
       { property: "og:type", content: "article" },
       { name: "twitter:card", content: "summary_large_image" },
