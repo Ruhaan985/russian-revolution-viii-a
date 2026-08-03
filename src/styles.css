@@ -4,6 +4,15 @@
 
 @custom-variant dark (&:is(.dark *));
 
+@theme {
+  --font-display: "Oswald", Impact, sans-serif;
+  --font-body: "Spectral", Georgia, serif;
+  --color-crimson: oklch(0.48 0.19 27);
+  --color-ember: oklch(0.62 0.21 32);
+  --color-ash: oklch(0.28 0.008 60);
+  --color-bone: oklch(0.9 0.015 85);
+}
+
 /*
  * Design system definition.
  *
