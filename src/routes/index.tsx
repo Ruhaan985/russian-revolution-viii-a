@@ -1,4 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { SiteFooter, SiteHeader } from "@/components/SiteHeader";
+import { chapters } from "@/data/chapters";
 import heroPetrograd from "@/assets/hero-petrograd.jpg";
 import winterPalace from "@/assets/winter-palace.jpg";
 import workerPortrait from "@/assets/worker-portrait.jpg";
@@ -76,6 +78,7 @@ const numbers = [
 function Index() {
   return (
     <main className="bg-background text-foreground">
+      <SiteHeader />
       {/* Hero */}
       <section className="grain relative h-[100svh] min-h-[640px] w-full overflow-hidden">
         <img
@@ -99,8 +102,19 @@ function Index() {
             into strikes, mutiny and gunfire — and something without precedent took its
             place.
           </p>
-          <div className="mt-10 flex items-center gap-4 border-t border-border pt-6">
-            <span className="rule-label">Scroll — the year unfolds</span>
+          <div className="mt-10 flex flex-wrap items-center gap-3 border-t border-border pt-6">
+            <Link
+              to="/timeline"
+              className="rounded-full bg-primary px-5 py-2.5 text-xs tracking-[0.2em] text-primary-foreground uppercase transition-opacity hover:opacity-90"
+            >
+              Interactive timeline
+            </Link>
+            <Link
+              to="/chapters"
+              className="rounded-full border border-border px-5 py-2.5 text-xs tracking-[0.2em] uppercase transition-colors hover:border-primary"
+            >
+              19 chapters
+            </Link>
           </div>
         </div>
       </section>
@@ -266,14 +280,48 @@ function Index() {
         </div>
       </section>
 
-      <footer className="border-t border-border">
-        <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-12 md:flex-row md:items-center md:justify-between">
-          <span className="rule-label">The Russian Revolution — A Visual Chronicle</span>
-          <p className="text-sm text-muted-foreground">
-            Imagery is photographic reconstruction, not archival record.
-          </p>
+      {/* Chapters */}
+      <section className="border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 py-24">
+          <span className="rule-label text-primary">The full chronicle</span>
+          <h2 className="mt-4 text-[clamp(2rem,5vw,3.5rem)] leading-[0.95] font-bold tracking-tight uppercase">
+            Nineteen chapters
+          </h2>
+          <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {chapters.slice(0, 6).map((c) => (
+              <Link
+                key={c.slug}
+                to="/chapters/$slug"
+                params={{ slug: c.slug }}
+                className="group block overflow-hidden rounded border border-border transition-colors hover:border-primary"
+              >
+                <div className="aspect-[16/10] overflow-hidden">
+                  <img
+                    src={c.hero.src}
+                    alt={c.hero.alt}
+                    loading="lazy"
+                    className="h-full w-full object-cover opacity-80 grayscale-[35%] transition duration-500 group-hover:scale-105 group-hover:opacity-100"
+                  />
+                </div>
+                <div className="p-5">
+                  <p className="text-xs tracking-[0.2em] text-primary uppercase">{c.dateline}</p>
+                  <h3 className="mt-2 font-[family-name:var(--font-display)] text-xl uppercase">
+                    {c.title}
+                  </h3>
+                </div>
+              </Link>
+            ))}
+          </div>
+          <Link
+            to="/chapters"
+            className="mt-10 inline-block rounded-full border border-border px-5 py-2.5 text-xs tracking-[0.2em] uppercase transition-colors hover:border-primary"
+          >
+            See all chapters →
+          </Link>
         </div>
-      </footer>
+      </section>
+
+      <SiteFooter />
     </main>
   );
 }
