@@ -1,4 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { OpeningTitles } from "@/components/OpeningTitles";
 import { SiteFooter, SiteHeader } from "@/components/SiteHeader";
 import { chapters } from "@/data/chapters";
 import heroPetrograd from "@/assets/hero-petrograd.jpg";
@@ -76,8 +78,26 @@ const numbers = [
 ];
 
 function Index() {
+  const [intro, setIntro] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (sessionStorage.getItem("rr-intro-seen")) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    sessionStorage.setItem("rr-intro-seen", "1");
+    setIntro(true);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = intro ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [intro]);
+
   return (
     <main className="bg-background text-foreground">
+      {intro ? <OpeningTitles onDone={() => setIntro(false)} /> : null}
       <SiteHeader />
       {/* Hero */}
       <section className="grain relative h-[100svh] min-h-[640px] w-full overflow-hidden">
