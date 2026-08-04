@@ -32,7 +32,7 @@ function TimelinePage() {
   const [yearIdx, setYearIdx] = useState<number>(0);
   const [open, setOpen] = useState<string | null>(null);
 
-  const fromYear = years[yearIdx];
+  const fromYear = years[yearIdx] ?? years[0]!;
 
   const events = useMemo(
     () =>

@@ -10,12 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as ChaptersIndexRouteImport } from './routes/chapters.index'
 import { Route as ChaptersSlugRouteImport } from './routes/chapters.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TimelineRoute = TimelineRouteImport.update({
+  id: '/timeline',
+  path: '/timeline',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChaptersIndexRoute = ChaptersIndexRouteImport.update({
@@ -31,30 +37,34 @@ const ChaptersSlugRoute = ChaptersSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/timeline': typeof TimelineRoute
   '/chapters/$slug': typeof ChaptersSlugRoute
   '/chapters/': typeof ChaptersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/timeline': typeof TimelineRoute
   '/chapters/$slug': typeof ChaptersSlugRoute
   '/chapters': typeof ChaptersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/timeline': typeof TimelineRoute
   '/chapters/$slug': typeof ChaptersSlugRoute
   '/chapters/': typeof ChaptersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/chapters/$slug' | '/chapters/'
+  fullPaths: '/' | '/timeline' | '/chapters/$slug' | '/chapters/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/chapters/$slug' | '/chapters'
-  id: '__root__' | '/' | '/chapters/$slug' | '/chapters/'
+  to: '/' | '/timeline' | '/chapters/$slug' | '/chapters'
+  id: '__root__' | '/' | '/timeline' | '/chapters/$slug' | '/chapters/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  TimelineRoute: typeof TimelineRoute
   ChaptersSlugRoute: typeof ChaptersSlugRoute
   ChaptersIndexRoute: typeof ChaptersIndexRoute
 }
@@ -66,6 +76,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/timeline': {
+      id: '/timeline'
+      path: '/timeline'
+      fullPath: '/timeline'
+      preLoaderRoute: typeof TimelineRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/chapters/': {
@@ -87,6 +104,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  TimelineRoute: TimelineRoute,
   ChaptersSlugRoute: ChaptersSlugRoute,
   ChaptersIndexRoute: ChaptersIndexRoute,
 }
