@@ -102,8 +102,19 @@ function Index() {
             into strikes, mutiny and gunfire — and something without precedent took its
             place.
           </p>
-          <div className="mt-10 flex items-center gap-4 border-t border-border pt-6">
-            <span className="rule-label">Scroll — the year unfolds</span>
+          <div className="mt-10 flex flex-wrap items-center gap-3 border-t border-border pt-6">
+            <Link
+              to="/timeline"
+              className="rounded-full bg-primary px-5 py-2.5 text-xs tracking-[0.2em] text-primary-foreground uppercase transition-opacity hover:opacity-90"
+            >
+              Interactive timeline
+            </Link>
+            <Link
+              to="/chapters"
+              className="rounded-full border border-border px-5 py-2.5 text-xs tracking-[0.2em] uppercase transition-colors hover:border-primary"
+            >
+              19 chapters
+            </Link>
           </div>
         </div>
       </section>
