@@ -53,11 +53,11 @@ export function OpeningTitles({ onDone }: { onDone: () => void }) {
 
   const columns = useMemo(() => {
     const cols: string[][] = [[], [], [], [], []];
-    PLATES.forEach((p, i) => cols[i % 5].push(p));
+    PLATES.forEach((p, i) => cols[i % 5]!.push(p));
     return cols.map((c) => [...c, ...c, ...c]);
   }, []);
 
-  const current = BEATS[beat];
+  const current = BEATS[beat] ?? BEATS[0]!;
 
   return (
     <div
