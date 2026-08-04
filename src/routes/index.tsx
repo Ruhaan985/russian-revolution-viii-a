@@ -1,4 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { SiteFooter, SiteHeader } from "@/components/SiteHeader";
+import { chapters } from "@/data/chapters";
 import heroPetrograd from "@/assets/hero-petrograd.jpg";
 import winterPalace from "@/assets/winter-palace.jpg";
 import workerPortrait from "@/assets/worker-portrait.jpg";
