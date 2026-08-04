@@ -76,6 +76,7 @@ const numbers = [
 function Index() {
   return (
     <main className="bg-background text-foreground">
+      <SiteHeader />
       {/* Hero */}
       <section className="grain relative h-[100svh] min-h-[640px] w-full overflow-hidden">
         <img
