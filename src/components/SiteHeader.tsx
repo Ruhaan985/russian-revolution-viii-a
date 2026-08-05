@@ -42,7 +42,9 @@ export function SiteHeader() {
 export function SiteFooter() {
   return (
     <footer className="border-t border-border/60 px-5 py-10 text-center text-xs text-muted-foreground">
-      <p>Archival photographs via Wikimedia Commons — public domain.</p>
+      <p className="rule-label text-primary">Made by a group of students · Grade VIII A</p>
+      <p className="mt-3">Archival photographs via Wikimedia Commons — public domain.</p>
+
       <p className="mt-2">
         <Link to="/chapters" className="underline underline-offset-4 hover:text-foreground">
           Browse all chapters
