@@ -154,7 +154,9 @@ export function OpeningTitles({ onDone }: { onDone: () => void }) {
       <div className="absolute inset-x-0 bottom-0">
         <div className="flex items-center justify-between px-6 pb-5">
           <span className="rule-label">Opening titles</span>
+          <span className="rule-label hidden sm:inline">Made by a group of students · Grade VIII A</span>
           <span className="rule-label text-primary">
+
             {String(beat + 1).padStart(2, "0")} / {String(BEATS.length).padStart(2, "0")}
           </span>
         </div>
