@@ -110,34 +110,52 @@ export function OpeningTitles({ onDone }: { onDone: () => void }) {
       <div className="absolute inset-0 vignette" />
       <div className="absolute inset-0 bg-background/45" />
 
+      {/* cut flash + wipe between beats */}
+      <div key={`fx-${flash}`} className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute inset-0 bg-primary"
+          style={{ animation: "intro-flash 620ms ease-out forwards" }}
+        />
+        <div
+          className="absolute inset-0 bg-background"
+          style={{ animation: "intro-wipe 780ms cubic-bezier(0.76,0,0.24,1) forwards" }}
+        />
+      </div>
+
       {/* title card */}
       <div className="absolute inset-0 flex items-center justify-center px-6">
         <div
           key={beat}
-          className="animate-scale-in max-w-3xl -rotate-[3deg] border-l-4 border-primary bg-background/95 px-8 py-10 text-center shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)] sm:px-16 sm:py-14"
+          className="max-w-3xl -rotate-[3deg] border-l-4 border-primary bg-background/95 px-8 py-10 text-center shadow-[0_40px_120px_-20px_rgba(0,0,0,0.9)] sm:px-16 sm:py-14"
+          style={{ animation: "intro-card 1100ms cubic-bezier(0.16,1,0.3,1) both" }}
         >
-          <p className="rule-label">{current.kicker}</p>
-          <h1 className="mt-4 text-4xl leading-[0.95] font-bold text-foreground sm:text-6xl md:text-7xl">
+          <p className="rule-label" style={{ animation: "intro-rise 900ms 120ms cubic-bezier(0.16,1,0.3,1) both" }}>
+            {current.kicker}
+          </p>
+          <h1
+            className="mt-4 text-4xl leading-[0.95] font-bold text-foreground sm:text-6xl md:text-7xl"
+            style={{ animation: "intro-rise 1000ms 220ms cubic-bezier(0.16,1,0.3,1) both" }}
+          >
             {current.line}
           </h1>
           {current.sub ? (
-            <p className="mt-5 font-body text-sm text-muted-foreground italic sm:text-base">
+            <p
+              className="mt-5 font-body text-sm text-muted-foreground italic sm:text-base"
+              style={{ animation: "intro-rise 1000ms 380ms cubic-bezier(0.16,1,0.3,1) both" }}
+            >
               {current.sub}
             </p>
           ) : null}
         </div>
       </div>
 
-      {/* progress + skip */}
+      {/* progress */}
       <div className="absolute inset-x-0 bottom-0">
         <div className="flex items-center justify-between px-6 pb-5">
           <span className="rule-label">Opening titles</span>
-          <button
-            onClick={onDone}
-            className="rule-label border border-border px-4 py-2 text-foreground transition-colors hover:bg-primary hover:text-primary-foreground"
-          >
-            Skip intro
-          </button>
+          <span className="rule-label text-primary">
+            {String(beat + 1).padStart(2, "0")} / {String(BEATS.length).padStart(2, "0")}
+          </span>
         </div>
         <div className="h-1 w-full bg-secondary">
           <div
@@ -151,7 +169,22 @@ export function OpeningTitles({ onDone }: { onDone: () => void }) {
         @keyframes intro-drift-up { from { transform: translateY(0); } to { transform: translateY(-33.33%); } }
         @keyframes intro-drift-down { from { transform: translateY(-33.33%); } to { transform: translateY(0); } }
         @keyframes intro-progress { from { width: 0%; } to { width: 100%; } }
+        @keyframes intro-flash { 0% { opacity: 0.85; } 30% { opacity: 0.25; } 100% { opacity: 0; } }
+        @keyframes intro-wipe {
+          0% { clip-path: inset(0 0 0 0); }
+          100% { clip-path: inset(0 0 0 100%); }
+        }
+        @keyframes intro-card {
+          0% { opacity: 0; transform: rotate(-9deg) scale(1.14) translateY(24px); filter: blur(14px); }
+          60% { opacity: 1; filter: blur(0); }
+          100% { opacity: 1; transform: rotate(-3deg) scale(1) translateY(0); filter: blur(0); }
+        }
+        @keyframes intro-rise {
+          0% { opacity: 0; transform: translateY(26px); letter-spacing: 0.18em; }
+          100% { opacity: 1; transform: translateY(0); letter-spacing: normal; }
+        }
       `}</style>
+
     </div>
   );
 }
