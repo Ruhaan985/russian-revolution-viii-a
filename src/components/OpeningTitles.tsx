@@ -29,6 +29,7 @@ const BEATS: { kicker: string; line: string; sub?: string }[] = [
   { kicker: "1918 — 1922", line: "Reds & Whites", sub: "Armoured trains across the steppe" },
   { kicker: "1922", line: "Union", sub: "Out of the wreckage, a new state" },
   { kicker: "A visual chronicle", line: "The Russian Revolution", sub: "Nineteen chapters · thirty-six turning points" },
+  { kicker: "Made by", line: "Grade VIII A", sub: "A group of students" },
 ];
 
 const TOTAL_MS = 60000;
