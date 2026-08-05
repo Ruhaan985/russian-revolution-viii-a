@@ -31,16 +31,18 @@ const BEATS: { kicker: string; line: string; sub?: string }[] = [
   { kicker: "A visual chronicle", line: "The Russian Revolution", sub: "Nineteen chapters · thirty-six turning points" },
 ];
 
-const TOTAL_MS = 45000;
+const TOTAL_MS = 60000;
 const BEAT_MS = TOTAL_MS / BEATS.length;
 
 export function OpeningTitles({ onDone }: { onDone: () => void }) {
   const [beat, setBeat] = useState(0);
   const [leaving, setLeaving] = useState(false);
+  const [flash, setFlash] = useState(0);
 
   useEffect(() => {
     const tick = window.setInterval(() => {
       setBeat((b) => (b + 1 < BEATS.length ? b + 1 : b));
+      setFlash((f) => f + 1);
     }, BEAT_MS);
     const end = window.setTimeout(() => setLeaving(true), TOTAL_MS - 900);
     const done = window.setTimeout(onDone, TOTAL_MS);
