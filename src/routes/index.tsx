@@ -113,6 +113,7 @@ function Index() {
 
         <div className="relative z-10 mx-auto flex h-full max-w-6xl flex-col justify-end px-6 pb-20">
           <span className="rule-label">Petrograd · MCMXVII</span>
+          <span className="mt-2 rule-label text-primary">Made by a group of students · Grade VIII A</span>
           <h1 className="mt-6 max-w-4xl text-[clamp(2.75rem,9vw,7.5rem)] font-bold leading-[0.86] tracking-tight">
             The Russian
             <span className="block text-primary">Revolution</span>
