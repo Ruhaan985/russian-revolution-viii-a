@@ -33,7 +33,24 @@ export function SiteHeader() {
           >
             Chapters
           </Link>
+          <Link
+            to="/outreach"
+            activeProps={{ className: "text-foreground" }}
+            inactiveProps={{ className: "text-muted-foreground" }}
+            className="transition-colors hover:text-foreground"
+          >
+            Outreach
+          </Link>
+          <Link
+            to="/conclusion"
+            activeProps={{ className: "text-foreground" }}
+            inactiveProps={{ className: "text-muted-foreground" }}
+            className="transition-colors hover:text-foreground"
+          >
+            Conclusion
+          </Link>
         </div>
+
       </nav>
     </header>
   );

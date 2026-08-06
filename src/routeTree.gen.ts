@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConclusionRouteImport } from './routes/conclusion'
 import { Route as OutreachRouteImport } from './routes/outreach'
 import { Route as TimelineRouteImport } from './routes/timeline'
 import { Route as ChaptersIndexRouteImport } from './routes/chapters.index'
@@ -18,6 +19,11 @@ import { Route as ChaptersSlugRouteImport } from './routes/chapters.$slug'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ConclusionRoute = ConclusionRouteImport.update({
+  id: '/conclusion',
+  path: '/conclusion',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OutreachRoute = OutreachRouteImport.update({
@@ -43,6 +49,7 @@ const ChaptersSlugRoute = ChaptersSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/conclusion': typeof ConclusionRoute
   '/outreach': typeof OutreachRoute
   '/timeline': typeof TimelineRoute
   '/chapters/$slug': typeof ChaptersSlugRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/conclusion': typeof ConclusionRoute
   '/outreach': typeof OutreachRoute
   '/timeline': typeof TimelineRoute
   '/chapters/$slug': typeof ChaptersSlugRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/conclusion': typeof ConclusionRoute
   '/outreach': typeof OutreachRoute
   '/timeline': typeof TimelineRoute
   '/chapters/$slug': typeof ChaptersSlugRoute
@@ -65,12 +74,25 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/outreach' | '/timeline' | '/chapters/$slug' | '/chapters/'
+  fullPaths:
+    | '/'
+    | '/conclusion'
+    | '/outreach'
+    | '/timeline'
+    | '/chapters/$slug'
+    | '/chapters/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/outreach' | '/timeline' | '/chapters/$slug' | '/chapters'
+  to:
+    | '/'
+    | '/conclusion'
+    | '/outreach'
+    | '/timeline'
+    | '/chapters/$slug'
+    | '/chapters'
   id:
     | '__root__'
     | '/'
+    | '/conclusion'
     | '/outreach'
     | '/timeline'
     | '/chapters/$slug'
@@ -79,6 +101,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ConclusionRoute: typeof ConclusionRoute
   OutreachRoute: typeof OutreachRoute
   TimelineRoute: typeof TimelineRoute
   ChaptersSlugRoute: typeof ChaptersSlugRoute
@@ -92,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/conclusion': {
+      id: '/conclusion'
+      path: '/conclusion'
+      fullPath: '/conclusion'
+      preLoaderRoute: typeof ConclusionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/outreach': {
@@ -127,6 +157,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ConclusionRoute: ConclusionRoute,
   OutreachRoute: OutreachRoute,
   TimelineRoute: TimelineRoute,
   ChaptersSlugRoute: ChaptersSlugRoute,
@@ -135,13 +166,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
